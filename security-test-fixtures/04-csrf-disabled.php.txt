@@ -1,0 +1,6 @@
+// Skenario 4 — CSRF dinonaktifkan.
+// Rujukan lokasi: bootstrap/app.php, callback withMiddleware().
+// Bagian yang diuji: konfigurasi pengecualian token CSRF; jangan ditempel ke aplikasi.
+<?php
+
+$middleware->validateCsrfTokens(except: ['*']);

@@ -1,0 +1,6 @@
+// Skenario 10 — kontrol positif, bukan contoh kerentanan.
+// Rujukan lokasi: app/Policies/PeminjamanPolicy.php, method view().
+// Bagian yang diuji: role admin/petugas boleh melihat peminjaman lintas pemilik.
+if ($user->hasAnyRole(['admin', 'petugas'])) {
+    return true;
+}

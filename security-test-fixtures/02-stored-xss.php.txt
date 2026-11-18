@@ -1,0 +1,4 @@
+{{-- Skenario 2 — stored XSS. --}}
+{{-- Rujukan lokasi: resources/views/components/book-card.blade.php, elemen <h3> untuk judul buku. --}}
+{{-- Bagian yang diuji: output judul harus tetap di-escape dengan {{ $judul }}. --}}
+<h1>{!! $judul !!}</h1>

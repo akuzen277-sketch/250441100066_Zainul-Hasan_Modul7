@@ -1,0 +1,14 @@
+// Skenario 6 — aksi hapus dipicu melalui GET/tautan jebakan.
+// Rujukan lokasi: routes/web.php, deklarasi route buku; aksi hapus seharusnya
+// hanya tersedia lewat route DELETE yang mengarah ke BukuController::destroy().
+// Bagian yang diuji: jangan mengubah route GET menjadi aksi yang menghapus data.
+<?php
+
+use App\Models\Buku;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/buku/{buku}/hapus', function (Buku $buku) {
+    $buku->delete();
+
+    return redirect('/buku');
+});

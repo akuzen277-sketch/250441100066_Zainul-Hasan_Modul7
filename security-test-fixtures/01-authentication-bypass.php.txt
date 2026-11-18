@@ -1,0 +1,9 @@
+// Skenario 1 — autentikasi.
+// Rujukan lokasi: routes/web.php, deklarasi GET /peminjaman/{id}.
+// Bagian yang diuji: pastikan route detail berada dalam grup middleware auth.
+<?php
+
+use App\Http\Controllers\PeminjamanController;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show']);

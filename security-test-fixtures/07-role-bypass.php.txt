@@ -1,0 +1,9 @@
+// Skenario 7 — bypass otorisasi role.
+// Rujukan lokasi: routes/web.php, deklarasi GET /buku/create di grup buku.
+// Bagian yang diuji: middleware can:kelola-buku harus tetap melindungi route.
+<?php
+
+use App\Http\Controllers\BukuController;
+use Illuminate\Support\Facades\Route;
+
+Route::middleware('auth')->get('/buku/create', [BukuController::class, 'create']);

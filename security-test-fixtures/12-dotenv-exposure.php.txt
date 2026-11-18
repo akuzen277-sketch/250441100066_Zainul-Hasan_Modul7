@@ -1,0 +1,11 @@
+// Skenario 12 — file .env terekspos.
+// Rujukan lokasi: konfigurasi document root/web server (harus menunjuk ke public/)
+// dan, sebagai simulasi route aplikasi, routes/web.php.
+// Bagian yang diuji: jangan membuat route yang membaca atau mengirim base_path('.env').
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::get('/.env', function () {
+    return response()->file(base_path('.env'));
+});

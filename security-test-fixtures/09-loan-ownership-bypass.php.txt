@@ -1,0 +1,10 @@
+// Skenario 9 — siswa mencoba membaca peminjaman milik siswa lain.
+// Rujukan lokasi: app/Http/Controllers/PeminjamanController.php, method show().
+// Bagian yang diuji: setelah findOrFail(), otorisasi Gate::authorize('view', $peminjaman)
+// harus dijalankan sebelum view menerima data.
+<?php
+
+public function show(int $id): Peminjaman
+{
+    return Peminjaman::findOrFail($id);
+}

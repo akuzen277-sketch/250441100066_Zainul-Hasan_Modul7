@@ -1,0 +1,4 @@
+// Skenario 8 — kontrol positif, bukan contoh kerentanan.
+// Rujukan lokasi: app/Http/Controllers/PeminjamanController.php, method show().
+// Bagian yang diuji: otorisasi pemilik melalui PeminjamanPolicy sebelum data ditampilkan.
+Gate::authorize('view', $peminjaman);

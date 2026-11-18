@@ -1,0 +1,8 @@
+// Skenario 11 — kebocoran detail error saat APP_DEBUG=false.
+// Rujukan lokasi: config/app.php, nilai konfigurasi 'debug'.
+// Bagian yang diuji: nilai harus mengikuti APP_DEBUG dan tidak dipaksa true.
+<?php
+
+return [
+    'debug' => true,
+];

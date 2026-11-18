@@ -1,0 +1,7 @@
+// Skenario 3 — SQL injection.
+// Rujukan lokasi: app/Http/Controllers/BukuController.php, method search().
+// Bagian yang diuji: query pencarian judul; aplikasi saat ini memakai placeholder parameter.
+<?php
+
+$judul = $request->query('judul');
+$hasil = DB::select("SELECT * FROM bukus WHERE judul = '$judul'");

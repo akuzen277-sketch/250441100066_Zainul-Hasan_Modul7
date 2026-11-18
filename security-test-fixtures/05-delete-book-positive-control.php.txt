@@ -1,0 +1,8 @@
+// Skenario 5 — kontrol positif, bukan contoh kerentanan.
+// Rujukan lokasi: routes/web.php, route DELETE /buku/{buku}, dan
+// app/Http/Controllers/BukuController.php, method destroy().
+// Bagian yang diuji: pengguna berizin menghapus buku melalui method DELETE.
+Route::delete('/buku/{buku}', [BukuController::class, 'destroy'])
+    ->middleware('can:kelola-buku');
+
+$buku->delete();
