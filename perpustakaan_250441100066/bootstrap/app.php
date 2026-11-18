@@ -17,6 +17,9 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
 
+        // Percayai semua proxy di lingkungan serverless / reverse proxy Vercel
+        $middleware->trustProxies(at: '*');
+
         // Middleware Sanctum untuk SPA
         $middleware->statefulApi();
 

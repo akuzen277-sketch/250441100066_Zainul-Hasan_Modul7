@@ -7,6 +7,9 @@ define('LARAVEL_START', microtime(true));
 $isVercel = isset($_ENV['VERCEL']) || isset($_SERVER['VERCEL']) || (PHP_OS_FAMILY === 'Linux' && is_dir('/tmp'));
 
 if ($isVercel) {
+    $_SERVER['HTTPS'] = 'on';
+    $_SERVER['SERVER_PORT'] = 443;
+
     $storagePath = '/tmp/storage';
     $dirs = [
         $storagePath . '/app/public',

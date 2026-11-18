@@ -1,5 +1,6 @@
 {
     "agents": [
+        "antigravity",
         "claude_code"
     ],
     "cloud": true,
@@ -9,9 +10,6 @@
     "sail": false,
     "skills": [
         "infer-conventions",
-        "deploying-to-cloud",
-        "laravel-best-practices",
-        "testing-best-practices",
-        "tailwindcss-development"
+        "deploying-to-cloud"
     ]
 }
