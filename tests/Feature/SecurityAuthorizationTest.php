@@ -71,7 +71,52 @@ class SecurityAuthorizationTest extends TestCase
 
         $this->actingAs($this->userWithRole('petugas'))
             ->get('/buku/create')
-            ->assertOk();
+            ->assertOk()
+            ->assertSee('id="buku-form"', false);
+    }
+
+    public function test_petugas_can_update_and_delete_books(): void
+    {
+        $petugas = $this->userWithRole('petugas');
+        $buku = Buku::factory()->create();
+
+        $this->actingAs($petugas)
+            ->putJson(route('buku.update', $buku), [
+                'kategori_id' => $buku->kategori_id,
+                'judul' => 'Buku Diperbarui',
+                'penulis' => 'Penulis Baru',
+                'tahun_terbit' => 2025,
+            ])
+            ->assertOk()
+            ->assertJsonPath('data.judul', 'Buku Diperbarui');
+
+        $this->actingAs($petugas)
+            ->deleteJson(route('buku.destroy', $buku))
+            ->assertOk()
+            ->assertJsonPath('message', 'Buku berhasil dihapus.');
+
+        $this->assertDatabaseMissing('bukus', ['id' => $buku->id]);
+    }
+
+    public function test_students_cannot_update_or_delete_books(): void
+    {
+        $student = $this->userWithRole('siswa');
+        $buku = Buku::factory()->create();
+
+        $this->actingAs($student)
+            ->putJson(route('buku.update', $buku), [
+                'kategori_id' => $buku->kategori_id,
+                'judul' => 'Buku Diperbarui',
+                'penulis' => 'Penulis Baru',
+                'tahun_terbit' => 2025,
+            ])
+            ->assertForbidden();
+
+        $this->actingAs($student)
+            ->deleteJson(route('buku.destroy', $buku))
+            ->assertForbidden();
+
+        $this->assertDatabaseHas('bukus', ['id' => $buku->id]);
     }
 
     public function test_loan_details_are_limited_to_the_owner_and_staff(): void
@@ -102,8 +147,10 @@ class SecurityAuthorizationTest extends TestCase
 
     public function test_legacy_get_delete_url_is_not_registered(): void
     {
+        $buku = Buku::factory()->create();
+
         $this->actingAs($this->userWithRole('admin'))
-            ->get('/buku/1/hapus')
+            ->get("/buku/{$buku->id}/hapus")
             ->assertNotFound();
     }
 

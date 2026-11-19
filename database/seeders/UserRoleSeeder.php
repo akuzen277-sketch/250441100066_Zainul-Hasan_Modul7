@@ -11,11 +11,23 @@ class UserRoleSeeder extends Seeder
 {
     public function run(): void
     {
-        $adminPassword = config('app.admin_initial_password');
+        $initialPasswords = [
+            'ADMIN_INITIAL_PASSWORD' => config('app.admin_initial_password'),
+            'PETUGAS_INITIAL_PASSWORD' => config('app.petugas_initial_password'),
+            'SISWA_INITIAL_PASSWORD' => config('app.siswa_initial_password'),
+        ];
 
-        if (! is_string($adminPassword) || strlen($adminPassword) < 16) {
+        foreach ($initialPasswords as $environmentVariable => $password) {
+            if (! is_string($password) || strlen($password) < 16) {
+                throw new \RuntimeException(
+                    "Set {$environmentVariable} to a unique password of at least 16 characters before seeding users."
+                );
+            }
+        }
+
+        if (count(array_unique($initialPasswords)) !== count($initialPasswords)) {
             throw new \RuntimeException(
-                'Set ADMIN_INITIAL_PASSWORD to a unique password of at least 16 characters before seeding users.'
+                'Each initial user password must be unique.'
             );
         }
 
@@ -23,7 +35,7 @@ class UserRoleSeeder extends Seeder
             ['email' => 'admin@gmail.com'],
             [
                 'name' => 'Administrator',
-                'password' => Hash::make($adminPassword),
+                'password' => Hash::make($initialPasswords['ADMIN_INITIAL_PASSWORD']),
             ]
         );
 
@@ -33,7 +45,7 @@ class UserRoleSeeder extends Seeder
             ['email' => 'petugas@gmail.com'],
             [
                 'name' => 'Petugas',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make($initialPasswords['PETUGAS_INITIAL_PASSWORD']),
             ]
         );
 
@@ -43,7 +55,7 @@ class UserRoleSeeder extends Seeder
             ['email' => 'siswa@gmail.com'],
             [
                 'name' => 'Anggota',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make($initialPasswords['SISWA_INITIAL_PASSWORD']),
             ]
         );
 

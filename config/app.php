@@ -42,6 +42,8 @@ return [
     'debug' => (bool) env('APP_DEBUG', false),
 
     'admin_initial_password' => env('ADMIN_INITIAL_PASSWORD'),
+    'petugas_initial_password' => env('PETUGAS_INITIAL_PASSWORD'),
+    'siswa_initial_password' => env('SISWA_INITIAL_PASSWORD'),
 
     /*
     |--------------------------------------------------------------------------

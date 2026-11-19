@@ -6,8 +6,8 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
 use App\Models\Buku;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
@@ -64,14 +64,9 @@ Route::middleware(['auth'])->group(function () {
         ->middleware('can:kelola-buku')
         ->name('buku.update');
 
-    // Route::delete('/buku/{buku}', [BukuController::class, 'destroy'])
-    //     ->middleware('can:kelola-buku')
-    //     ->name('buku.destroy');
-    
-    Route::get('/buku/{buku}/hapus', function (Buku $buku) {
-    $buku->delete();
-    return redirect()->route('buku.index');
-    });
+    Route::delete('/buku/{buku}', [BukuController::class, 'destroy'])
+        ->middleware('can:kelola-buku')
+        ->name('buku.destroy');
 
     Route::get('/buku-cari', [BukuController::class, 'search'])
         ->name('buku.search');
