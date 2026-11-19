@@ -1,4 +1,5 @@
 <x-guest-layout>
+    <p>250441100066</p>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
