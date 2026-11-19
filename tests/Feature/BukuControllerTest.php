@@ -31,6 +31,19 @@ class BukuControllerTest extends TestCase
             ->assertSeeText($buku->kategori->nama);
     }
 
+    public function test_book_data_is_available_to_authenticated_users_with_view_permission(): void
+    {
+        $buku = Buku::factory()->create([
+            'judul' => 'Belajar Laravel',
+        ]);
+
+        $this->actingAs($this->userWithBookViewPermission())
+            ->getJson(route('buku.data'))
+            ->assertOk()
+            ->assertJsonPath('data.0.id', $buku->id)
+            ->assertJsonPath('data.0.judul', 'Belajar Laravel');
+    }
+
     public function test_book_details_return_not_found_for_a_missing_book(): void
     {
         $this->actingAs($this->userWithBookViewPermission())

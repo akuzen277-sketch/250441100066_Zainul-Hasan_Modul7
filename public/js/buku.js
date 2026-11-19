@@ -1,4 +1,4 @@
-const API_URL = '/api/buku';
+const API_URL = '/buku-data';
 const BOOK_URL = '/buku';
 
 document.addEventListener('DOMContentLoaded', () => {

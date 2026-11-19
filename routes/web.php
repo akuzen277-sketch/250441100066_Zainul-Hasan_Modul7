@@ -52,6 +52,10 @@ Route::middleware(['auth'])->group(function () {
         ->middleware('permission:view buku')
         ->name('buku.index');
 
+    Route::get('/buku-data', [BukuController::class, 'data'])
+        ->middleware('permission:view buku')
+        ->name('buku.data');
+
     Route::get('/buku/create', [BukuController::class, 'create'])
         ->middleware('can:kelola-buku')
         ->name('buku.create');

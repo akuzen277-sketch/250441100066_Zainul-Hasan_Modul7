@@ -4,13 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBukuRequest;
 use App\Http\Requests\UpdateBukuRequest;
+use App\Http\Resources\BukuResource;
 use App\Models\Buku;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\DB;
 
 class BukuController extends Controller
 {
+    public function data(): AnonymousResourceCollection
+    {
+        return BukuResource::collection(
+            Buku::with('kategori')->latest()->get()
+        );
+    }
+
     public function index()
     {
         // Ambil data buku dari database beserta kategorinya
